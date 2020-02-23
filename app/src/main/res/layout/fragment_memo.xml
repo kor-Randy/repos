@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.line_challenges.viewmodel.MainViewModel" />
+        <variable
+            name="activity"
+            type="com.example.line_challenges.MainActivity" />
+        <import type="android.view.View"></import>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/et_title_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:ems="10"
+            android:background="@drawable/box_title"
+            android:focusableInTouchMode="@{viewModel.isFocusable() ? true : false}"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.nowMemo.title}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <EditText
+            android:id="@+id/et_content_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:ems="10"
+            android:background="@drawable/box_border"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.nowMemo.content}"
+            android:focusableInTouchMode="@{viewModel.isFocusable() ? true : false}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/bu_back_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintHorizontal_bias="0.05"
+            android:onClick="@{()->viewModel.moveFrag()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_keyboard_backspace_24px"/>
+
+        <ImageView
+            android:id="@+id/bu_write_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.95"
+            android:onClick="@{()->activity.memoFragment.saveMemo()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_save_24px"/>
+
+        <ImageView
+            android:id="@+id/iv_delete_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.8"
+            android:onClick="@{()->activity.memoFragment.deleteMemo()}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_delete_24px" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_imagelist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            app:layout_constraintWidth_percent="1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:adapterImageList="@{viewModel.nowPathList}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:listitem="@layout/item_image" />
+
+        <ImageView
+            android:id="@+id/iv_addimage_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintVertical_bias="0.9"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_add_a_photo_24px" />
+
+
+
+        <ImageView
+            android:id="@+id/iv_edit_memo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{()->activity.memoFragment.edit()}"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_edit_24px" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

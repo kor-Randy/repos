@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.line_challenges"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //room
+    implementation 'androidx.room:room-runtime:2.2.3'
+    implementation 'androidx.room:room-rxjava2:2.2.3'
+    kapt 'androidx.room:room-compiler:2.2.3'
+
+    def retrofit_version = "2.7.1"
+    def rxjava_version = '2.2.7'
+    def rxandroid_version = '2.1.1'
+    def lifecycle_version = "2.2.0"
+    def okhttpVersion = '3.9.0'
+    def recyclerview_version = "28.0.0"
+    def glide_version = "4.11.0"
+    def koin_version = '2.0.1'
+    def fragment_version = "1.2.1"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    //RxAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    //Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    // lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-core:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // RxJava Call Adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    // Recycler View
+    implementation "com.android.support:recyclerview-v7:$recyclerview_version"
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    // fragment
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+}
+androidExtensions {
+    experimental = true
+}
