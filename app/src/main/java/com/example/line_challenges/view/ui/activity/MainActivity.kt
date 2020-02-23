@@ -9,14 +9,12 @@ import android.graphics.Matrix
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.line_challenges.databinding.ActivityMainBinding
 import com.example.line_challenges.view.ui.fragment.MainFragment
 import com.example.line_challenges.view.ui.fragment.MemoFragment
@@ -25,10 +23,9 @@ import com.example.line_challenges.viewmodel.MainViewModel
 import java.io.FileInputStream
 import android.net.Uri
 import android.os.Environment
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.viewModels
 import androidx.core.content.FileProvider
-import kotlinx.android.synthetic.main.dialog_urlimage.*
+import androidx.lifecycle.ViewModelProvider
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -45,7 +42,6 @@ class MainActivity : AppCompatActivity()
     lateinit var fragmentTransaction: FragmentTransaction
     lateinit var fragmentManager: FragmentManager
     val REQUEST_GALLERY = 1
-    val REQUEST_CAMERA = 2
     var photoFile : File? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -61,8 +57,8 @@ class MainActivity : AppCompatActivity()
             .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         binding.lifecycleOwner = this // LiveData를 사용하기 위해서 없으면 Observe할때마다 refresh안딤
 
-        viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
-        backPressViewModel = ViewModelProviders.of(this)[BackPressViewModel::class.java]
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        backPressViewModel = ViewModelProvider(this).get(BackPressViewModel::class.java)
         mainFragment = MainFragment()
         memoFragment = MemoFragment()
         fragmentManager = supportFragmentManager
@@ -111,23 +107,21 @@ class MainActivity : AppCompatActivity()
         else
         {
             val intent = Intent(Intent.ACTION_PICK)
-            intent.setType(MediaStore.Images.Media.CONTENT_TYPE)
+            intent.type = MediaStore.Images.Media.CONTENT_TYPE
             startActivityForResult(intent, REQUEST_GALLERY)
         }
     }
 
     fun createFile() : File
     {
-        var currentPhotoPath = ""
+
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         return File.createTempFile(
             "JPEG_${timeStamp}_",
             ".jpg",
             storageDir
-        ).apply {
-            currentPhotoPath = this.absolutePath
-        }
+        )
     }
 
     fun dispatchTakePictureIntent() {
@@ -176,9 +170,9 @@ class MainActivity : AppCompatActivity()
         {
             if(data!=null)
             {
-                val selectedImage = data?.data
+                val selectedImage = data.data
                 var filePathColumn: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-                var cursor = getContentResolver().query(
+                var cursor = contentResolver.query(
                     selectedImage!!,
                     filePathColumn, null, null, null
                 )
@@ -189,9 +183,6 @@ class MainActivity : AppCompatActivity()
 
                 cursor.close()
 
-                var matrix = Matrix()
-                val bmp = BitmapFactory.decodeStream(FileInputStream(picturePath), null, null)
-                var bm = Bitmap.createBitmap(bmp!!, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true)
 
                 viewModel.putImagePath(picturePath)
             }

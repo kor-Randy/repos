@@ -1,29 +1,17 @@
 package com.example.line_challenges.viewmodel
 
 import android.app.Application
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.icu.text.SimpleDateFormat
-import android.os.Build
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.line_challenges.AppDatabase
 import com.example.line_challenges.base.BaseAndroidViewModel
 import com.example.line_challenges.model.Memo
 import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONArray
-import org.json.JSONObject
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MainViewModel(application : Application) : BaseAndroidViewModel(application)
@@ -87,6 +75,7 @@ class MainViewModel(application : Application) : BaseAndroidViewModel(applicatio
 
     fun newMemo()
     {
+        isFocusable.value=true
         nowPathList.clear()
         nowMemo = Memo(0,"","",null,null,null)
         fragNum.value=1

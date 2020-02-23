@@ -1,7 +1,6 @@
 package com.example.line_challenges.model
 
 import androidx.room.*
-import com.example.line_challenges.model.Memo
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -14,9 +13,6 @@ interface MemoDao
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(memo:Memo) : Completable
-
-    @Update
-    fun update(memo:Memo)
 
     @Query("DELETE FROM Memo WHERE id = :id")
     fun delete(id : Int) : Completable

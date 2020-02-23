@@ -1,6 +1,5 @@
 package com.example.line_challenges.view.adapter
 
-import android.content.Context
 import android.view.View
 import com.example.line_challenges.R
 import com.example.line_challenges.base.BaseAdapter

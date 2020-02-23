@@ -1,10 +1,6 @@
 package com.example.line_challenges.view.viewholder
 
-import android.content.DialogInterface
-import android.media.Image
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.example.line_challenges.MainActivity

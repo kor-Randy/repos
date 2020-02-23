@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.example.line_challenges"
         minSdkVersion 21
@@ -15,16 +16,32 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     dataBinding {
         enabled true
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -51,32 +68,32 @@ dependencies {
     def rxjava_version = '2.2.7'
     def rxandroid_version = '2.1.1'
     def lifecycle_version = "2.2.0"
-    def okhttpVersion = '3.9.0'
     def recyclerview_version = "28.0.0"
     def glide_version = "4.11.0"
-    def koin_version = '2.0.1'
     def fragment_version = "1.2.1"
 
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
     //RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     //RxAndroid
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    //https://github.com/ReactiveX/RxJava
+    // RxJava Call Adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    //출처 : https://github.com/JakeWharton/retrofit2-rxjava2-adapter
     //Retrofit2
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    //출처 : https://github.com/square/retrofit/tree/master/retrofit-converters/gson
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-livedata-core:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    // RxJava Call Adapter
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
     // Recycler View
     implementation "com.android.support:recyclerview-v7:$recyclerview_version"
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    //출처 : https://github.com/bumptech/glide
     // fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 }

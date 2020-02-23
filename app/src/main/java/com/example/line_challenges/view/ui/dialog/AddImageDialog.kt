@@ -6,10 +6,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.line_challenges.MainActivity
 import com.example.line_challenges.R
 import kotlinx.android.synthetic.main.dialog_addimage.view.*
-import kotlinx.android.synthetic.main.dialog_urlimage.view.*
 
 
 

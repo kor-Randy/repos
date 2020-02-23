@@ -1,6 +1,5 @@
 package com.example.line_challenges.view.viewholder
 
-
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.line_challenges.MainActivity

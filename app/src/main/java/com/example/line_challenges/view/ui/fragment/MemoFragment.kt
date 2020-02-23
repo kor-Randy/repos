@@ -1,15 +1,12 @@
 package com.example.line_challenges.view.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.line_challenges.MainActivity
 import com.example.line_challenges.R
@@ -18,7 +15,6 @@ import com.example.line_challenges.view.adapter.ImageListAdapter
 import com.example.line_challenges.view.ui.dialog.AddImageDialog
 import com.example.line_challenges.view.ui.dialog.UrlDialog
 import com.example.line_challenges.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.dialog_urlimage.*
 import kotlinx.android.synthetic.main.fragment_memo.*
 
 class MemoFragment : Fragment()
